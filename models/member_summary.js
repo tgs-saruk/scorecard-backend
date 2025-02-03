@@ -1,8 +1,10 @@
+const mongoose = require("mongoose");
+
 const memberSummarySchema = new mongoose.Schema(
   {
     memberID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "members",
+      ref: "member",
       required: true,
     },
     termID: {
@@ -10,15 +12,12 @@ const memberSummarySchema = new mongoose.Schema(
       ref: "term",
       required: true,
     },
-    congress: { type: String, required: true },
     summary: { type: String, required: true },
   },
   { timestamps: true }
 );
 
-MemberSummarySchema.index(
-  { memberID: 1, termID: 1, congress: 1 },
-  { unique: true }
-);
+// Ensure a member cannot have multiple summaries for the same term
+memberSummarySchema.index({ memberID: 1, termID: 1 }, { unique: true });
 
-module.exports = mongoose.model("memberSummary", memberSummarySchema);
+module.exports = mongoose.model("MemberSummary", memberSummarySchema);

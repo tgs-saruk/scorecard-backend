@@ -2,12 +2,12 @@ const scoreSchema = new mongoose.Schema(
   {
     voteID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Vote",
+      ref: "vote",
       required: true,
     },
     memberID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Member",
+      ref: "member",
       required: true,
     },
     score: {

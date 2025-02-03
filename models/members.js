@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const memberSchema = new mongoose.Schema(
   {
-    chamberID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Chamber",
+    chamber: {
+      type: String,
+      enum: ["house", "senate"],
       required: true,
     },
     name: { type: String, required: true },
@@ -20,5 +20,4 @@ const memberSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-module.exports = mongoose.model("members", memberSchema);
+module.exports = mongoose.model("member", memberSchema);
