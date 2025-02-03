@@ -1,8 +1,10 @@
+const mongoose = require("mongoose");
+
 const memberRatingSchema = new mongoose.Schema(
   {
     memberID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Member",
+      ref: "member",
       required: true,
     },
     termID: {
@@ -10,7 +12,6 @@ const memberRatingSchema = new mongoose.Schema(
       ref: "term",
       required: true,
     },
-    congress: { type: String, required: true },
     SBARating: {
       type: String,
       enum: ["A", "B", "C", "D", "E", "F"],
@@ -20,9 +21,7 @@ const memberRatingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-memberRatingSchema.index(
-  { memberID: 1, termID: 1, congress: 1 },
-  { unique: true }
-);
+// Ensure a member cannot have multiple ratings for the same term
+memberRatingSchema.index({ memberID: 1, termID: 1 }, { unique: true });
 
 module.exports = mongoose.model("memberRating", memberRatingSchema);
